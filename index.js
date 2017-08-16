@@ -17,8 +17,8 @@ navigator.mediaDevices.getUserMedia({
         { url: 'stun:stun2.l.google.com:19302' },
         { url: 'stun:stun.services.mozilla.com' },
         { url: 'stun:stun3.l.google.com:19302' },
-        { url: 'stun:stun4.l.google.com:19302' }
-        { url: 'turn:165.227.4.226:3478?AccountID=chris&Password=ilovecode' }
+        { url: 'stun:stun4.l.google.com:19302' },
+        { url: 'turn:165.227.4.226:3478', username: 'chris', credential:'ilovecode' }
       ]
      },
     trickle: true,
