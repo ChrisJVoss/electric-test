@@ -1,16 +1,19 @@
 const express = require('express')
-const app = express()
-const http = require('http').Server(app)
-const io = require('socket.io')(http)
+const pem = require('pem')
+pem.createCertificate({days: 1, selfSigned: true }, function(err, keys){
+  const app = express()
+  const publicPath = path.join(__dirname, 'public')
+  const staticMiddleware = express.static(publicPath)
+  app.use(staticMiddleware)
+  https.createServer({key: keys.serviceKey, cert: keys.certificate}, app).listen(3000, () => {
+    console.log('Listening on 3000')
+  })
+})
+const io = require('socket.io')(https)
 const path = require('path')
 const SimplePeer = require('simple-peer')
 
-const publicPath = path.join(__dirname, 'public')
-const staticMiddleware = express.static(publicPath)
-
 let connections = []
-
-app.use(staticMiddleware)
 
 io.on('connection', socket => {
   connections.push(socket)
@@ -23,8 +26,4 @@ io.on('connection', socket => {
     connections.splice(connections.indexOf(socket), 1)
     console.log('%s users connected', connections.length)
   })
-})
-
-http.listen(3000, () => {
-  console.log('Listening on 3000.')
 })
