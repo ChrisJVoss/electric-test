@@ -2,6 +2,7 @@ const express = require('express')
 const pem = require('pem')
 pem.createCertificate({days: 1, selfSigned: true }, function(err, keys){
   const app = express()
+  const path = require('path')
   const publicPath = path.join(__dirname, 'public')
   const staticMiddleware = express.static(publicPath)
   app.use(staticMiddleware)
@@ -9,7 +10,6 @@ pem.createCertificate({days: 1, selfSigned: true }, function(err, keys){
     console.log('Listening on 3000')
   })
   const io = require('socket.io')(https)
-  const path = require('path')
   const SimplePeer = require('simple-peer')
 
   let connections = []
