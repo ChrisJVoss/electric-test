@@ -1,5 +1,6 @@
-const privateKey = fs.readFileSync('../myCA/server_key.pem')
-const certificate = fs.readFileSync('../myCA/server_crt.pem')
+const fs = require('fs')
+const privateKey = fs.readFileSync('../../myCA/server_key.pem')
+const certificate = fs.readFileSync('../../myCA/server_crt.pem')
 
 const express = require('express')
 const app = express()
